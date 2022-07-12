@@ -1,7 +1,28 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine.
 version: 2.1
+# Define a command to be invoked later in the workflow.
+commands:
+  print_pipline_id:
+    description: "A simple command to print circle ci workflow id"
+    parameters:
+      to:
+        type: string
+        default: "capture Env Var for Workflow_ID"
+      steps:
+        - run:
+            name: "print workflow id"
+            command: |
+              echo $CIRCLE_WORKFLOW_ID
+
 # Define a job to be invoked later in a workflow.
-jobs:  
+jobs: 
+  print_workflow_id:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - print_pipline_id:
+        to: " "
+
   print_hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.    
     docker:
@@ -57,6 +78,7 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
+      - print_workflow_id
       - print_hello
       - print_world:
           requires:
