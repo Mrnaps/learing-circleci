@@ -8,11 +8,11 @@ commands:
       to:
         type: string
         default: "capture Env Var for Workflow_ID"
-      steps:
-        - run:
-            name: "print workflow id"
-            command: |
-              echo $CIRCLE_WORKFLOW_ID
+    steps:
+      - run:
+          name: "print workflow id"
+          command: |
+            echo $CIRCLE_WORKFLOW_ID
 
 # Define a job to be invoked later in a workflow.
 jobs: 
