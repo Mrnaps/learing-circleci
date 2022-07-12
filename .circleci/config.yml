@@ -31,7 +31,11 @@ jobs:
     steps:      
       - run:
           name: "Say hello"
-          command: "echo Hello"
+          command: return 1
+      - run:
+          name: "above run command has failed" 
+          command: echo "the above command has failed"  
+          when: on_fail 
   print_world:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.    
     docker:
