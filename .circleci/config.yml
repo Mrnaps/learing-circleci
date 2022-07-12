@@ -36,15 +36,22 @@ jobs:
       - run:
           name: "outputing a file from echo command"
           command: |
-            echo "this text is outputed to a txt file" > output.txt
+            echo "this text is outputed to a txt file" > ~/output.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt
+
   read_a_file:
     docker:
       - image: circleci/node:13.8.0
     steps:
+      - attach_workspace:
+          at: ~/
       - run:
           name: "reading from a file"
           command: |
-            cat output.txt          
+            cat ~/output.txt          
 
 # Invoke jobs via workflows
 workflows:
